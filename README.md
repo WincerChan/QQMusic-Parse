@@ -1,4 +1,7 @@
-# 纯 JS 解析 QQ 音乐的直链
+# QQMusic-Parse
+
+## 简介
+原生 JS 实现的解析 QQ 音乐直链，并封装了一个 jsonp 函数用于代替 ajax 的 get 方法。
 
 ## 用法
 1. 引入[以下文件](https://cdn.jsdelivr.net/gh/wincerchan/QQMusic-Parse@0.3/parse.min.js)
