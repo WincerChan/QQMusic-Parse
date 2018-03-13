@@ -1,0 +1,50 @@
+{
+    "manifest_version": 2,
+    "name": "QQMusic Parse",
+    "version": "1.0.0",
+    "description": "解析 QQ 音乐直链",
+    "icons": {
+        "16": "img/48x48.png",
+        "48": "img/48x48.png",
+        "128": "img/128x128.png"
+    },
+    "background": {
+        "page": "popup.html" 
+    },
+    "browser_action": {
+        "default_icon": "img/128x128.png",
+        "default_title": "QQ 音乐直链解析",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+               "<all_urls>" 
+            ],
+            "js": [
+                "js/parse.js",
+                "js/inject.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "contextMenus",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "storage"
+    ],
+
+    "homepage_url": "https://blog.itswincer.com",
+    "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
+    "omnibox": {
+        "keyword": "go"
+    },
+    "default_locale": "zh_CN",
+    "devtools_page": "devtools.html",
+    "content_security_policy": "script-src 'self' https://c.y.qq.com; object-src 'self'"
+}
