@@ -20,7 +20,9 @@ var handleUrl = function(smid, guid) {
 
     //请求获得 callback 的名称
     let cbName = getCb();
-    let url = `https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?format=json&cid=205361747&uin=0&songmid=${smid}&filename=${filename}&guid=${guid}&callback=${cbName}`;
+    let url = `https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg\
+?format=json&cid=205361747&uin=0&songmid=${smid}\
+&filename=${filename}&guid=${guid}&callback=${cbName}`;
     return url;
 };
 
