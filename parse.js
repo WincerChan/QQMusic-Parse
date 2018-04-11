@@ -13,7 +13,7 @@
  *
  * @param		{string}	smid 	每个歌曲的唯一标识
  * @param		{string}	guid	每次请求随机生成的数字
- * @returns	{string}	url		歌曲信息的请求地址
+ * @returns	    {string}	url		歌曲信息的请求地址
  */
 var handleUrl = function(smid, guid) {
     let filename = `C400${smid}.m4a`;
@@ -29,7 +29,7 @@ var handleUrl = function(smid, guid) {
 /**
  * 随机生成 callback 的名称
  *
- * @param		void
+ * @param	void
  * @returns	{string}	name	随机生成的英文字符串
  */
 var getCb = function() {
@@ -40,7 +40,7 @@ var getCb = function() {
  * 封装的 jsonp 跨域函数
  *
  * @param		{string}	url		歌曲信息的请求地址
- * @returns	{object}	Promise	包含歌曲直链的 Promise 对象
+ * @returns	    {object}	Promise	包含歌曲直链的 Promise 对象
  */
 var getJSONP = function(url) {
 
@@ -78,7 +78,7 @@ var getJSONP = function(url) {
  * 获取歌曲最终链接，也是最外层的接口
  *
  * @param		{string}	smid	每个歌曲的唯一标识
- * @returns	{string}	link	歌曲最终的播放链接
+ * @returns	    {string}	link	歌曲最终的播放链接
  */
 var getMusic = async function(smid) {
     let guid = Math.floor(Math.random() * 2147483647) * Math.floor(Date.now() * 1000) % 10000000000;
