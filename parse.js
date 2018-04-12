@@ -14,7 +14,25 @@
  * @param		{string}	url		歌曲信息的请求地址
  * @returns	    {object}	Promise	包含歌曲直链的 Promise 对象
  */
-var getJSONP = function (url) {
+var getJSONP = function (sourceUrl, params) {
+    // 完整的 url 地址
+    this.url = sourceUrl + '?';
+
+    /**
+     * 合成完整的 URL
+     *
+     * @param	{string}	params	URL 的参数
+     * @returns	{object}	script	script 标签的对象
+     */
+    var urlCat = function (params) {
+        for (const param in params) {
+            const element = params[param];
+            if (param == 'callback')
+                url += `${param}=${element}`;
+            else
+                url += `${param}=${element}&`;
+        }
+    }
 
     /**
      * 创建 <script> 标签
@@ -22,7 +40,7 @@ var getJSONP = function (url) {
      * @param	{string}	url		歌曲信息的请求地址
      * @returns	{object}	script	script 标签的对象
      */
-    var createScript = function (url) {
+    var createScript = function () {
         let script = document.createElement('script');
         script.setAttribute('src', url);
         document.body.appendChild(script);
@@ -33,13 +51,14 @@ var getJSONP = function (url) {
     return new Promise((resolve, reject) => {
 
         // 获取刚刚生成的 callback 名称
+        urlCat(params);
         const cbName = url.match(/.*?callback=(.*)/)[1];
         window[cbName] = function (data) {
             resolve(data);
         };
 
         //创建 <script> 标签
-        const script = createScript(url);
+        const script = createScript();
         script.onerror = function () {
             reject('error');
         };
@@ -59,10 +78,19 @@ var parse = function (smid) {
 
         //请求获得 callback 的名称
         let cbName = getCb();
-        let url = `https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg\
-?format=json&cid=205361747&uin=0&songmid=${smid}\
-&filename=${filename}&guid=${guid}&callback=${cbName}`;
-        return url;
+        Info = {
+            url: 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg',
+            params: {
+                format: 'json',
+                cid: '205361747',
+                uin: '0',
+                songmid: smid,
+                filename: filename,
+                guid: guid,
+                callback: cbName
+            }
+        }
+        return Info;
     };
 
     /**
@@ -86,11 +114,10 @@ var parse = function (smid) {
         let url = handleUrl(smid, guid);
 
         // 这里必须等待取得 getJSONP 的数据
-        let info = await getJSONP(url);
+        let info = await getJSONP(url.url, url.params);
         let filename = info.data.items[0].filename;
         let vkey = info.data.items[0].vkey;
         return `https://dl.stream.qqmusic.qq.com/${filename}?vkey=${vkey}&guid=${guid}&uin=0&fromtag=66`;
     }
     return getMusic(smid);
 }
-console.log(await parse('0041FwTv0Ai3Ku'))
