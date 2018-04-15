@@ -3,7 +3,7 @@
  * 纯 JS 解析 QQ 音乐直链
  *
  * @date	2018-03-08
- * @version	v0.2
+ * @version	v0.3
  * @author	WincerChan<WincerChan@gmail.com>
  * ------------------------------------------------------------------
  */
